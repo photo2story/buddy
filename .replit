@@ -1,5 +1,5 @@
 entrypoint = "main.py"
-modules = ["python-3.10:v20-20230824-f46249a"]
+modules = ["nodejs-20", "python-3.10:v20-20230824-f46249a"]
 
 hidden = [".pythonlibs"]
 
