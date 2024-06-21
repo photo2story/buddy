@@ -23,3 +23,5 @@ flask_cors
 pandas==2.2.1
 pandas_ta==0.3.14b0
 numpy==1.26.4
+requests_html-0.10.0-py3-none-any.whl
+mplchart-0.0.8-py3-none-any.whl
