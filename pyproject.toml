@@ -1,0 +1,60 @@
+[tool.poetry]
+name = "python-template"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.10.0,<3.11"
+replit = "^3.2.4"
+Flask = "^2.2.0"
+bs4 = "^0.0.1"
+finance-datareader = "^0.9.66"
+yahoo-earnings-calendar = "^0.6.0"
+yfinance = "^0.2.32"
+pytz = "^2023.3.post1"
+discord = "^2.3.2"
+investpy = "^1.0.8"
+pandas-ta = "^0.3.14b0"
+pycryptodome = "^3.19.0"
+matplotlib = "^3.8.2"
+websockets = "^12.0"
+numpy = "^1.26.2"
+yahoo-fin = "^0.8.9.1"
+tabulate = "^0.9.0"
+pyyaml = "^6.0.1"
+flask-cors = "^4.0.0"
+openai = "^1.3.7"
+pandas = "^2.1.3"
+requests = "^2.31.0"
+pillow = "^10.1.0"
+tradingview-ta = "^3.3.0"
+tqdm = "^4.66.1"
+pyupbit = "^0.2.33"
+httpx = "^0.25.2"
+pendulum = "^3.0.0"
+devtools = "^0.12.2"
+fastapi = "^0.105.0"
+schemas = "^0.7.1"
+loguru = "^0.7.2"
+pydantic = "^2.5.2"
+exchange = "^0.3"
+consultor = "^0.2.0"
+ccxt = "^4.1.91"
+beautifulsoup4 = "^4.12.3"
+discord-py = "^2.3.2"
+crypto = "^1.4.1"
+mplfinance = "^0.12.10b0"
+
+[tool.pyright]
+# https://github.com/microsoft/pyright/blob/main/docs/configuration.md
+useLibraryCodeForTypes = true
+
+[tool.ruff]
+# https://beta.ruff.rs/docs/configuration/
+select = ['E', 'W', 'F', 'I', 'B', 'C4', 'ARG', 'SIM']
+ignore = ['W291', 'W292', 'W293']
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
