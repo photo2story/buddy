@@ -13,34 +13,22 @@ import discord
 from discord.ext import commands
 from get_ticker import get_ticker_from_korean_name
 
-# Discord 설정
-TOKEN = os.getenv('DISCORD_APPLICATION_TOKEN')
-CHANNEL_ID = os.getenv('DISCORD_CHANNEL_ID')
-intents = discord.Intents.all()
-intents.message_content = True
-client = discord.Client(intents=intents)
+class BotCommands(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
 
-bot = commands.Bot(command_prefix='!', intents=intents)
+    @commands.command()
+    async def ping(self, ctx):
+        print(f"Ping command received from {ctx.author.name}")
+        await ctx.send(f'pong: {self.bot.user.name}')
 
-@bot.event
-async def on_ready():
-    print(f'Bot has successfully logged in: {bot.user.name}')
-    channel = bot.get_channel(int(CHANNEL_ID))
-    if channel:
-        await channel.send(f'Bot has successfully logged in: {bot.user.name}')
-    else:
-        print(f"Cannot find the channel: {CHANNEL_ID}")
+    @commands.command()
+    async def ticker(self, ctx, *, name):
+        print(f"Ticker command received: {name}")
+        ticker_symbol = get_ticker_from_korean_name(name)
+        await ctx.send(f'Ticker symbol for {name} is {ticker_symbol}')
 
-@bot.command()
-async def ticker(ctx, *, name):
-    ticker_symbol = get_ticker_from_korean_name(name)
-    await ctx.send(f'Ticker symbol for {name} is {ticker_symbol}')
+def setup(bot):
+    bot.add_cog(BotCommands(bot))
 
-@bot.command()
-async def ping(ctx):
-    print(f"Ping command received from {ctx.author.name}")
-    await ctx.send(f'pong: {bot.user.name}')
-
-if __name__ == "__main__":
-    bot.run(TOKEN)
 
