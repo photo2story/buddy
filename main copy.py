@@ -29,23 +29,16 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-# 애플리케이션의 엔드포인트 정의
-@app.route('/')
-def index():
-    return "Hello, Heroku!"
+# @app.route('/')
+# def home():
+#     return jsonify(message="Hello from Flask!")
 
-@app.route('/api/command', methods=['POST'])
-def command():
-    data = request.get_json()
-    command = data.get('command')
-    if command:
-        channel = bot.get_channel(int(channel_id))
-        if channel:
-            asyncio.run_coroutine_threadsafe(channel.send(command), bot.loop)
-        response_message = f"Command received and sent to Discord: {command}"
-        return jsonify({'message': response_message}), 200
-    else:
-        return jsonify({'message': 'No command provided'}), 400
+@app.route('/api/data', methods=['GET'])
+def get_data():
+    data = {
+        "message": "Hello from Flask!"
+    }
+    return jsonify(data)
 
 def run():
     app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8080)))
@@ -220,9 +213,8 @@ except ImportError as e:
 
 bot.run(TOKEN)
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Heroku 환경에서 제공하는 PORT 변수 사용
-    app.run(host='0.0.0.0', port=port)
+if __name__ == '__main__':
+    app.run(debug=True)
 
 # .\\.venv\\Scripts\\activate
 # python main.py
