@@ -12,7 +12,16 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return jsonify(message="Hello from Flask!")
+    return jsonify({"message": "Welcome to Buddy Plotter!"})
+
+@app.route('/api/stock', methods=['GET'])
+def get_stock():
+    # 여기에 로직을 추가하세요
+    return jsonify({"stock": "AAPL", "price": 150})
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({"error": "Not found"}), 404
 
 def run_flask():
     port = int(os.getenv('PORT', 5000))
