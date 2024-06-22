@@ -1,10 +1,3 @@
-# Visual Studio
-.vs/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-
 # Python
 __pycache__/
 *.py[cod]
@@ -17,59 +10,16 @@ venv/
 ENV/
 ENV.*/
 venv.*/
+# Ignore virtual environment files
 myenv/
 .env
+# Node
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+# Miscellaneous
 *.csv
-# .vercel
-
-# Node.js
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Logs
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-
-# Dependency directories
-node_modules/
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# Next.js build output
-.next/
-
-# Nuxt.js build output
-.nuxt/
-
-# Gatsby files
-.cache/
-# Comment in the public line in if your project dir is your Gatsby root dir
-# public
-
-# VuePress build output
-.vuepress/dist/
-
-# Vue.js
-/dist/
-
-# Storybook build output
-.out/
-storybook-static/
-
-# Cache directories
-.cache/
-.tmp/
-
-# Temporary directories and files
-tmp/
-temp/
+*.png
+.DS_Store
+.vercel
