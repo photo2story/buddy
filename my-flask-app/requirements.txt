@@ -6,7 +6,6 @@ python-dotenv
 mojito2
 yfinance
 finance-datareader
-tradingview_ta
 investpy
 bs4
 datetime
