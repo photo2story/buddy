@@ -16,7 +16,13 @@ def home():
 
 @app.route('/api/stock', methods=['GET'])
 def get_stock():
+    # 여기에 로직을 추가하세요
     return jsonify({"stock": "AAPL", "price": 150})
+
+@app.route('/api/images', methods=['GET'])  # 추가된 부분
+def list_images():
+    images = os.listdir('images')
+    return jsonify(images)
 
 @app.route('/image/<filename>')
 def get_image(filename):
