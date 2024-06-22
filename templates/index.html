@@ -1,34 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Bot Control</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Home Page</title>
 </head>
 <body>
-    <h1>Discord Bot Control</h1>
-    <input type="text" id="commandInput" placeholder="Enter command">
-    <button id="sendCommandButton">Send Command</button>
+<h1>Welcome to the Home page!</h1>
 
-    <script>
-        $(document).ready(function() {
-            $('#sendCommandButton').click(function() {
-                var command = $('#commandInput').val();
-                $.ajax({
-                    url: '/api/command',
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ command: command }),
-                    success: function(response) {
-                        alert(response.message);
-                    },
-                    error: function(response) {
-                        alert('Error: ' + response.responseJSON.message);
-                    }
-                });
-            });
-        });
-    </script>
+Click here to login:
+<a href="/login"><button>Login with discord</button></a>
+
 </body>
 </html>
+

@@ -1,33 +1,28 @@
-from datetime import datetime
-import pandas as pd
-import numpy as np
-from get_ticker import load_tickers, search_tickers, get_ticker_name, update_stock_market_csv
-from estimate_stock import estimate_snp, estimate_stock
-from Results_plot import plot_comparison_results, plot_results_all
-from get_compare_stock_data import merge_csv_files, load_sector_info
-from Results_plot_mpl import plot_results_mpl
-import xml.etree.ElementTree as ET
+import discord
+from discord.ext import commands, ipc
 
-from discord.ext import commands
-from get_ticker import get_ticker_from_korean_name
+class MyBot(commands.Bot):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.ipc = ipc.Server(self, secret_key="this_is_secret")
 
-class BotCommands(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
+    async def on_ready(self):
+        print("Bot is ready.")
 
-    @commands.command(name="ping")
-    async def ping(self, ctx):
-        print(f"Ping command received from {ctx.author.name}")
-        await ctx.send(f'pong: {self.bot.user.name}')
+    async def on_ipc_ready(self):
+        print("IPC server is ready.")
 
-    @commands.command(name="ticker")
-    async def ticker(self, ctx, *, name):
-        print(f"Ticker command received: {name}")
-        ticker_symbol = get_ticker_from_korean_name(name)
-        await ctx.send(f'Ticker symbol for {name} is {ticker_symbol}')
+    async def on_ipc_error(self, endpoint, error):
+        print(endpoint, "raised", error)
 
-def setup(bot):
-    bot.add_cog(BotCommands(bot))
+my_bot = MyBot(command_prefix="", intents=discord.Intents.default())
+
+@my_bot.command()
+async def ping(ctx):
+    await ctx.send(f'pong: {my_bot.user.name}')
+
+my_bot.ipc.start()
+my_bot.run("YOUR_DISCORD_BOT_TOKEN")
 
 
 
