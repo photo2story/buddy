@@ -7,9 +7,9 @@ os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  # this is required because OAut
 app = Quart(__name__)
 
 app.config["SECRET_KEY"] = os.getenv('FLASK_SECRET_KEY', 'your_default_secret_key')  # You should set this to a secure random value
-app.config["DISCORD_CLIENT_ID"] = os.getenv('DISCORD_CLIENT_ID')
-app.config["DISCORD_CLIENT_SECRET"] = os.getenv('DISCORD_CLIENT_SECRET')
-app.config["DISCORD_REDIRECT_URI"] = os.getenv('DISCORD_REDIRECT_URI')
+app.config["DISCORD_CLIENT_ID"] = os.getenv('DISCORD_CHANNEL_ID')
+app.config["DISCORD_CLIENT_SECRET"] = os.getenv('DISCORD_APPLICATION_TOKEN')
+app.config["DISCORD_REDIRECT_URI"] = os.getenv('DISCORD_WEBHOOK_URL')
 
 discord = DiscordOAuth2Session(app)
 
