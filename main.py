@@ -23,6 +23,16 @@ def get_stock():
 def not_found(error):
     return jsonify({"error": "Not found"}), 404
 
+@app.before_request
+def before_request():
+    app.logger.debug("Request started")
+
+@app.after_request
+def after_request(response):
+    app.logger.debug("Request finished")
+    return response
+
+
 def run_flask():
     port = int(os.getenv('PORT', 5000))
     app.run(host='0.0.0.0', port=port)

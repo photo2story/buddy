@@ -13,7 +13,11 @@ const App = () => {
   const loadReviews = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('https://api.github.com/repos/photo2story/buddy/contents/');
+      const response = await axios.get('https://api.github.com/repos/photo2story/buddy/contents/', {
+        headers: {
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`
+        }
+      });
       const files = response.data;
       const filteredReviews = files.filter(file => file.name.startsWith('comparison_') && file.name.endsWith('.png'))
         .map(file => {
