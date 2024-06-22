@@ -11,7 +11,7 @@ $(function() {
     stockInput.autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: "http://localhost:8080/api/get_tickers",
+                url: "/api/get_tickers",
                 method: "GET",
                 dataType: "json",
                 success: function(data) {
@@ -71,7 +71,7 @@ $(function() {
     function loadReviews() {
         const reviewList = $('#reviewList');
 
-        $.getJSON('https://api.github.com/repos/photo2story/buddy4/contents/', function(data) {
+        $.getJSON('https://api.github.com/repos/photo2story/buddy/contents/', function(data) {
             $.each(data, function(index, file) {
                 if (file.name.startsWith('comparison_') && file.name.endsWith('.png')) {
                     const stockName = file.name.replace('comparison_', '').replace('_VOO.png', '').toUpperCase();
@@ -92,13 +92,13 @@ $(function() {
     }
 
     function showMplChart(stockName) {
-        const url = `https://raw.githubusercontent.com/photo2story/buddy4/main/result_mpl_${stockName}.png`;
+        const url = `https://raw.githubusercontent.com/photo2story/buddy/main/result_mpl_${stockName}.png`;
         window.open(url, '_blank');
     }
 
     function saveToSearchHistory(stockName) {
         $.ajax({
-            url: 'http://localhost:8080/save_search_history',
+            url: '/api/save_search_history',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ stock_name: stockName }),
