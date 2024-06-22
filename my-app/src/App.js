@@ -15,7 +15,7 @@ const App = () => {
     try {
       const response = await axios.get('https://api.github.com/repos/photo2story/buddy/contents/', {
         headers: {
-          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`
+          Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
         }
       });
       const files = response.data;
