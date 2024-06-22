@@ -1,33 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const App = () => {
   const [imageUrl, setImageUrl] = useState('');
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchImage = async () => {
-      try {
-        const response = await axios.get('https://api.github.com/repos/photo2story/buddy/contents/comparison_AAPL_VOO.png');
-        const fileData = response.data;
-        setImageUrl(fileData.download_url);
-      } catch (error) {
-        console.error('Error fetching the image:', error);
-      }
-      setLoading(false);
-    };
-
-    fetchImage();
+    loadImage();
   }, []);
+
+  const loadImage = async () => {
+    try {
+      const url = 'https://my-buddy-app-355192a036b3.herokuapp.com/image/comparison_AAPL_VOO.png';
+      setImageUrl(url);
+    } catch (error) {
+      console.error('Error fetching image:', error);
+    }
+  };
 
   return (
     <div className="App">
       <h1>React와 Flask 연동</h1>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        imageUrl && <img src={imageUrl} alt="AAPL vs VOO" style={{ width: '100%' }} />
-      )}
+      {imageUrl && <img src={imageUrl} alt="Stock Comparison" style={{ width: '100%' }} />}
     </div>
   );
 }

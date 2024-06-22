@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import os
 from dotenv import load_dotenv
 from discord.ext import commands, tasks
@@ -19,6 +19,10 @@ def get_stock():
     # 여기에 로직을 추가하세요
     return jsonify({"stock": "AAPL", "price": 150})
 
+@app.route('/image/<filename>')
+def get_image(filename):
+    return send_from_directory('images', filename)
+
 @app.errorhandler(404)
 def not_found(error):
     return jsonify({"error": "Not found"}), 404
@@ -31,7 +35,6 @@ def before_request():
 def after_request(response):
     app.logger.debug("Request finished")
     return response
-
 
 def run_flask():
     port = int(os.getenv('PORT', 5000))
