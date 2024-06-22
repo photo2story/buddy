@@ -3,19 +3,47 @@ import axios from 'axios';
 
 const App = () => {
   const [stockName, setStockName] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    loadReviews();
+  }, []);
+
+  const loadReviews = async () => {
+    setLoading(true);
+    try {
+      // 이미지 파일명 하드코딩
+      const files = [
+        {
+          name: 'comparison_AAPL_VOO.png',
+          download_url: 'https://my-buddy-app-355192a036b3.herokuapp.com/image/comparison_AAPL_VOO.png'
+        }
+      ];
+      const filteredReviews = files.map(file => {
+        const stockName = file.name.replace('comparison_', '').replace('_VOO.png', '').toUpperCase();
+        return {
+          stockName,
+          imageUrl: file.download_url
+        };
+      });
+      setReviews(filteredReviews);
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
+    setLoading(false);
+  };
 
   const handleInputChange = (event) => {
     setStockName(event.target.value.toUpperCase());
   };
 
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get(`/image/comparison_${stockName}_VOO.png`);
-      setImageUrl(response.config.url);
-    } catch (error) {
-      console.error('Error fetching image:', error);
-      alert('이미지를 찾을 수 없습니다. 다시 시도해 주세요.');
+  const handleSearch = () => {
+    const review = reviews.find(review => review.stockName.includes(stockName));
+    if (review) {
+      document.getElementById(`review-${review.stockName}`).scrollIntoView({ behavior: 'smooth' });
+    } else {
+      alert('Review is being prepared. Please try again later.');
     }
   };
 
@@ -30,14 +58,20 @@ const App = () => {
         placeholder="Enter stock name"
       />
       <button id="searchReviewButton" onClick={handleSearch}>Search</button>
-      {imageUrl && (
-        <div>
-          <h3>{stockName} vs VOO</h3>
-          <img 
-            src={imageUrl} 
-            alt={`${stockName} vs VOO`} 
-            style={{ width: '100%' }} 
-          />
+      {loading ? <p>Loading...</p> : (
+        <div id="reviewList">
+          {reviews.map((review, index) => (
+            <div key={index} id={`review-${review.stockName}`} className="review">
+              <h3>{review.stockName} vs VOO</h3>
+              <img 
+                id={`image-${review.stockName}`} 
+                src={review.imageUrl} 
+                alt={`${review.stockName} vs VOO`} 
+                style={{ width: '100%' }} 
+                onClick={() => window.open(review.imageUrl, '_blank')}
+              />
+            </div>
+          ))}
         </div>
       )}
     </div>
