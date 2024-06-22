@@ -1,3 +1,1 @@
-# Procfile
-web: gunicorn -w 4 -b 0.0.0.0:$PORT main:app
-worker: python bot.py
+web: gunicorn main:app --log-file -
