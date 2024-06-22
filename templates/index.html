@@ -10,6 +10,8 @@
     <h1>Discord Bot Control</h1>
     <input type="text" id="commandInput" placeholder="Enter command">
     <button id="sendCommandButton">Send Command</button>
+    <div id="responseMessage"></div>
+
     <script>
         $(document).ready(function() {
             $('#sendCommandButton').click(function() {
@@ -20,7 +22,7 @@
                     contentType: 'application/json',
                     data: JSON.stringify({ command: command }),
                     success: function(response) {
-                        alert(response.message);
+                        $('#responseMessage').text(response.message);
                     },
                     error: function(response) {
                         alert('Error: ' + response.responseJSON.message);

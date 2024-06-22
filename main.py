@@ -41,21 +41,24 @@ app = Flask('')
 CORS(app)
 
 @app.route('/')
-def home():
+def index():
     return render_template('index.html')
 
 @app.route('/api/command', methods=['POST'])
 def command():
-    data = request.json
+    data = request.get_json()
     command = data.get('command')
-    if not command:
-        return jsonify({'message': 'Command is required'}), 400
+    if command:
+        # Discord 봇 명령 처리 로직 추가
+        # 예: 특정 채널로 메시지 보내기
+        channel = bot.get_channel(int(channel_id))
+        if channel:
+            asyncio.run_coroutine_threadsafe(channel.send(command), bot.loop)
+        response_message = f"Command received and sent to Discord: {command}"
+        return jsonify({'message': response_message}), 200
+    else:
+        return jsonify({'message': 'No command provided'}), 400
 
-    # Discord bot command 실행
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    result = loop.run_until_complete(run_discord_command(command))
-    return jsonify(result)
 
 async def run_discord_command(command):
     ctx = await bot.get_context(discord.Object(id=channel_id))
