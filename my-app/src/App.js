@@ -13,12 +13,16 @@ const App = () => {
   const loadReviews = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('/image/comparison_AAPL_VOO.png');
-      const file = response.data;
-      setReviews([{
+      // Heroku 서버의 이미지를 불러오기 위한 API 호출
+      const response = await axios.get('/image/comparison_AAPL_VOO.png', { responseType: 'blob' });
+      const imageURL = URL.createObjectURL(response.data);
+      
+      const filteredReviews = [{
         stockName: 'AAPL',
-        imageUrl: '/image/comparison_AAPL_VOO.png'
-      }]);
+        imageUrl: imageURL
+      }];
+      
+      setReviews(filteredReviews);
     } catch (error) {
       console.error('Error fetching reviews:', error);
     }
