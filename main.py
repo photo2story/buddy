@@ -26,12 +26,13 @@ site_packages_path = os.path.join(venv_path, 'Lib', 'site-packages')
 
 load_dotenv()
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__)
 CORS(app)
 
+# 애플리케이션의 엔드포인트 정의
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return "Hello, Heroku!"
 
 @app.route('/api/command', methods=['POST'])
 def command():
@@ -220,7 +221,8 @@ except ImportError as e:
 bot.run(TOKEN)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=int(os.getenv("PORT", 8080)))
+    port = int(os.environ.get("PORT", 5000))  # Heroku 환경에서 제공하는 PORT 변수 사용
+    app.run(host='0.0.0.0', port=port)
 
 # .\\.venv\\Scripts\\activate
 # python main.py
