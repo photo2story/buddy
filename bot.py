@@ -19,4 +19,4 @@ async def on_ready():
 
 bot.add_cog(BotCommands(bot))
 
-bot.run(os.getenv('DISCORD_TOKEN'))
+bot.run(os.getenv('DISCORD_TOKEN2'))

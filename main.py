@@ -41,5 +41,8 @@ if __name__ == "__main__":
     # Run the bot in a separate process
     bot_process = subprocess.Popen(["python", "bot.py"])
     
+    # Get the port from the environment variable or default to 5000
+    port = int(os.environ.get("PORT", 5000))
+    
     # Run the Quart app
-    app.run(port=int(os.environ.get("PORT", 5000)))
+    app.run(port=port)
