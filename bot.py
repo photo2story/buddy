@@ -1,29 +1,22 @@
 import discord
-from discord.ext import commands, ipc
+from discord.ext import commands
+import os
 
-class MyBot(commands.Bot):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.ipc = ipc.Server(self, secret_key="this_is_secret")
+class BotCommands(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
 
-    async def on_ready(self):
-        print("Bot is ready.")
+    @commands.command()
+    async def ping(self, ctx):
+        await ctx.send("pong")
+        print(f"Ping command received from {ctx.author.name}")
 
-    async def on_ipc_ready(self):
-        print("IPC server is ready.")
+bot = commands.Bot(command_prefix="!", intents=discord.Intents.default())
 
-    async def on_ipc_error(self, endpoint, error):
-        print(endpoint, "raised", error)
+@bot.event
+async def on_ready():
+    print(f"Bot has successfully logged in: {bot.user.name}")
 
-my_bot = MyBot(command_prefix="", intents=discord.Intents.default())
+bot.add_cog(BotCommands(bot))
 
-@my_bot.command()
-async def ping(ctx):
-    await ctx.send(f'pong: {my_bot.user.name}')
-
-my_bot.ipc.start()
-my_bot.run("YOUR_DISCORD_BOT_TOKEN")
-
-
-
-
+bot.run(os.getenv('DISCORD_TOKEN'))
