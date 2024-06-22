@@ -26,4 +26,15 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy Flask files
-COPY --from=flask-build /app /app/my-fl
+COPY --from=flask-build /app /app/my-flask-app
+
+# Copy Node files
+COPY --from=node-build /app /app/my-node-app
+
+# Install Flask requirements
+RUN pip install -r my-flask-app/requirements.txt
+
+# Expose ports for Flask and Node
+EXPOSE 5000 3000
+
+CMD ["sh", "-c", "cd /app/my-node-app && npm start & cd /app/my-flask-app && flask run --host=0.0.0.0"]
