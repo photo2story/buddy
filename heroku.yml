@@ -1,7 +1,5 @@
 build:
-  - my-flask-app:
-      docker:
-        web: Dockerfile
-  - my-node-app:
-      docker:
-        web: Dockerfile
+  docker:
+    web: my-flask-app/Dockerfile
+    worker: my-node-app/Dockerfile
+
