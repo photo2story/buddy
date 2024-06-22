@@ -26,25 +26,19 @@ site_packages_path = os.path.join(venv_path, 'Lib', 'site-packages')
 
 load_dotenv()
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__)
 CORS(app)
 
 @app.route('/')
-def index():
-    return render_template('index.html')
+def home():
+    return jsonify(message="Hello from Flask!")
 
-@app.route('/api/command', methods=['POST'])
-def command():
-    data = request.get_json()
-    command = data.get('command')
-    if command:
-        channel = bot.get_channel(int(channel_id))
-        if channel:
-            asyncio.run_coroutine_threadsafe(channel.send(command), bot.loop)
-        response_message = f"Command received and sent to Discord: {command}"
-        return jsonify({'message': response_message}), 200
-    else:
-        return jsonify({'message': 'No command provided'}), 400
+@app.route('/api/data', methods=['GET'])
+def get_data():
+    data = {
+        'message': 'Hello, this is data from Flask API!'
+    }
+    return jsonify(data)
 
 def run():
     app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8080)))
@@ -219,8 +213,8 @@ except ImportError as e:
 
 bot.run(TOKEN)
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=int(os.getenv("PORT", 8080)))
+if __name__ == '__main__':
+    app.run(debug=True)
 
 # .\\.venv\\Scripts\\activate
 # python main.py
