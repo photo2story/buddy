@@ -9,18 +9,6 @@ import discord
 from discord.ext import commands
 import asyncio
 import tracemalloc
-
-from datetime import datetime
-import pandas as pd
-import numpy as np
-import requests
-from discord.ext import tasks
-from get_ticker import load_tickers, search_tickers, get_ticker_name, update_stock_market_csv
-from estimate_stock import estimate_snp, estimate_stock
-from Results_plot import plot_comparison_results, plot_results_all
-from get_compare_stock_data import merge_csv_files, load_sector_info
-from Results_plot_mpl import plot_results_mpl
-import xml.etree.ElementTree as ET
 import certifi
 import requests
 import sys
@@ -50,7 +38,7 @@ def command():
     data = request.get_json()
     command = data.get('command')
     if command:
-        channel = bot.get_channel(int(CHANNEL_ID))
+        channel = bot.get_channel(int(channel_id))
         if channel:
             asyncio.run_coroutine_threadsafe(channel.send(command), bot.loop)
         response_message = f"Command received and sent to Discord: {command}"
@@ -69,6 +57,16 @@ def keep_alive():
 keep_alive()
 
 # Your Discord bot setup and run logic should follow here
+from datetime import datetime
+import pandas as pd
+import numpy as np
+from get_ticker import load_tickers, search_tickers, get_ticker_name, update_stock_market_csv
+from estimate_stock import estimate_snp, estimate_stock
+from Results_plot import plot_comparison_results, plot_results_all
+from get_compare_stock_data import merge_csv_files, load_sector_info
+from Results_plot_mpl import plot_results_mpl
+import xml.etree.ElementTree as ET
+from get_ticker import get_ticker_from_korean_name
 
 # Discord 설정
 TOKEN = os.getenv('DISCORD_APPLICATION_TOKEN')
