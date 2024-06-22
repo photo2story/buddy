@@ -27,6 +27,3 @@ numpy==1.26.4
 requests_html-0.10.0-py3-none-any.whl
 mplchart-0.0.8-py3-none-any.whl
 certifi
-quart
-quart-discord
-quart-cors
