@@ -175,6 +175,12 @@ def get_ticker_list_all():
 
     return df_combined
 
+def get_ticker_from_korean_name(name):
+    df_KR = search_ticker_list_KR()
+    result = df_KR.loc[df_KR['Name'] == name, 'Symbol']
+    ticker = result.iloc[0] if not result.empty else None
+    return ticker
+
 if __name__ == "__main__":
     # 사용 예시
     # get_ticker_list_all()
