@@ -1,1 +1,1 @@
-web: gunicorn main:app --log-file -
+web: gunicorn -c gunicorn_config.py main:app

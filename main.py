@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify
 import os
 from dotenv import load_dotenv
-from discord.ext import commands
+from discord.ext import commands, tasks
 import discord
+import threading
 
 # Load environment variables
 load_dotenv()
@@ -13,7 +14,7 @@ app = Flask(__name__)
 def home():
     return jsonify(message="Hello from Flask!")
 
-if __name__ == '__main__':
+def run_flask():
     port = int(os.getenv('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
 
@@ -35,4 +36,13 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send('pong')
 
-bot.run(TOKEN)
+def run_discord_bot():
+    bot.run(TOKEN)
+
+if __name__ == '__main__':
+    # Run Flask in a separate thread
+    flask_thread = threading.Thread(target=run_flask)
+    flask_thread.start()
+
+    # Run Discord bot
+    run_discord_bot()
