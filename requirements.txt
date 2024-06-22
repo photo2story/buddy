@@ -16,7 +16,7 @@ asyncio
 plotly
 tabulate
 yahoo_earnings_calendar
-yahoo_fin
+yahoo_fin 
 requests_html
 mplfinance
 flask_cors

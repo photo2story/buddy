@@ -1,0 +1,12 @@
+{
+  "name": "buddy",
+  "version": "1.0.0",
+  "description": "Using the ReplAuth with Flask is super easy! First we create a new Flask app:",
+  "main": "scripts.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
