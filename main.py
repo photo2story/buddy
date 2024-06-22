@@ -1,12 +1,15 @@
 # Main.py
 
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request, jsonify, Response, render_template
+from flask_cors import CORS
 from threading import Thread
 import os
 from dotenv import load_dotenv
 import discord
 from discord.ext import commands
 import asyncio
+import tracemalloc
+
 from datetime import datetime
 import pandas as pd
 import numpy as np
@@ -17,8 +20,6 @@ from estimate_stock import estimate_snp, estimate_stock
 from Results_plot import plot_comparison_results, plot_results_all
 from get_compare_stock_data import merge_csv_files, load_sector_info
 from Results_plot_mpl import plot_results_mpl
-import tracemalloc
-from flask_cors import CORS
 import xml.etree.ElementTree as ET
 import certifi
 import requests
