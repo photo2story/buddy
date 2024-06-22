@@ -9,15 +9,18 @@ from Results_plot_mpl import plot_results_mpl
 import xml.etree.ElementTree as ET
 from get_ticker import get_ticker_from_korean_name
 
+import os
+import discord
+from discord.ext import commands
+
 # Discord 설정
 TOKEN = os.getenv('DISCORD_APPLICATION_TOKEN')
 CHANNEL_ID = os.getenv('DISCORD_CHANNEL_ID')
-# print(TOKEN)  # 이 줄을 추가하여 TOKEN 값을 출력
 intents = discord.Intents.all()
 intents.message_content = True
 client = discord.Client(intents=intents)
 
-bot = commands.Bot(command_prefix='', intents=intents)
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
@@ -32,13 +35,12 @@ async def on_ready():
 async def ticker(ctx, *, name):
     ticker_symbol = get_ticker_from_korean_name(name)
     await ctx.send(f'Ticker symbol for {name} is {ticker_symbol}')
-    
+
 @bot.command()
 async def ping(ctx):
     print(f"Ping command received from {ctx.author.name}")
     await ctx.send(f'pong: {bot.user.name}')
 
-tracemalloc.start()    
-
 if __name__ == "__main__":
     bot.run(TOKEN)
+
