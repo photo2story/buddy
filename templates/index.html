@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buddy Plotter</title>
 </head>
 <body>
     <h1>Welcome to Buddy Plotter!</h1>
-    <img src="{{ url_for('send_image', filename='comparison_AAPL_VOO.png') }}" alt="Comparison Image">
+    <img src="{{ url_for('static', filename='images/comparison_AAPL_VOO.png') }}" alt="Comparison AAPL vs VOO">
 </body>
 </html>

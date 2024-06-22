@@ -1,14 +1,10 @@
-from flask import Flask, send_from_directory, jsonify, render_template
+from flask import Flask, render_template, url_for
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return jsonify(message="Welcome to Buddy Plotter!")
-
-@app.route('/image/<filename>')
-def send_image(filename):
-    return send_from_directory('static/images', filename)
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
