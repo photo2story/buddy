@@ -13,21 +13,12 @@ const App = () => {
   const loadReviews = async () => {
     setLoading(true);
     try {
-      // 이미지 파일명 하드코딩
-      const files = [
-        {
-          name: 'comparison_AAPL_VOO.png',
-          download_url: 'https://my-buddy-app-355192a036b3.herokuapp.com/image/comparison_AAPL_VOO.png'
-        }
-      ];
-      const filteredReviews = files.map(file => {
-        const stockName = file.name.replace('comparison_', '').replace('_VOO.png', '').toUpperCase();
-        return {
-          stockName,
-          imageUrl: file.download_url
-        };
-      });
-      setReviews(filteredReviews);
+      const response = await axios.get('/image/comparison_AAPL_VOO.png');
+      const file = response.data;
+      setReviews([{
+        stockName: 'AAPL',
+        imageUrl: '/image/comparison_AAPL_VOO.png'
+      }]);
     } catch (error) {
       console.error('Error fetching reviews:', error);
     }
