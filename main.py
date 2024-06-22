@@ -29,14 +29,14 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/')
-def home():
-    return jsonify(message="Hello from Flask!")
+# @app.route('/')
+# def home():
+#     return jsonify(message="Hello from Flask!")
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
     data = {
-        'message': 'Hello, this is data from Flask API!'
+        "message": "Hello from Flask!"
     }
     return jsonify(data)
 

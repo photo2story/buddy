@@ -4,9 +4,10 @@ function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/api/data') // 백엔드 API 엔드포인트
+    fetch('http://localhost:5000/api/data')
       .then(response => response.json())
-      .then(data => setData(data));
+      .then(data => setData(data))
+      .catch(error => console.error('Error fetching data:', error));
   }, []);
 
   return (
