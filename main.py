@@ -37,7 +37,7 @@ site_packages_path = os.path.join(venv_path, 'Lib', 'site-packages')
 
 load_dotenv()
 
-app = Flask('')
+app = Flask(__name__)
 CORS(app)
 
 @app.route('/')
@@ -49,21 +49,13 @@ def command():
     data = request.get_json()
     command = data.get('command')
     if command:
-        # Discord 봇 명령 처리 로직 추가
-        # 예: 특정 채널로 메시지 보내기
-        channel = bot.get_channel(int(channel_id))
+        channel = bot.get_channel(int(CHANNEL_ID))
         if channel:
             asyncio.run_coroutine_threadsafe(channel.send(command), bot.loop)
         response_message = f"Command received and sent to Discord: {command}"
         return jsonify({'message': response_message}), 200
     else:
         return jsonify({'message': 'No command provided'}), 400
-
-
-async def run_discord_command(command):
-    ctx = await bot.get_context(discord.Object(id=channel_id))
-    await bot.process_commands(ctx)
-    return {"message": "Command executed"}
 
 def run():
     app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8080)))
