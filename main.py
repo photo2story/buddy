@@ -37,7 +37,7 @@ site_packages_path = os.path.join(venv_path, 'Lib', 'site-packages')
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 CORS(app)
 
 @app.route('/')
