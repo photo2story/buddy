@@ -7,11 +7,11 @@ from Results_plot import plot_comparison_results, plot_results_all
 from get_compare_stock_data import merge_csv_files, load_sector_info
 from Results_plot_mpl import plot_results_mpl
 import xml.etree.ElementTree as ET
-from get_ticker import get_ticker_from_korean_name
 
 import os
 import discord
 from discord.ext import commands
+from get_ticker import get_ticker_from_korean_name
 
 # Discord 설정
 TOKEN = os.getenv('DISCORD_APPLICATION_TOKEN')
