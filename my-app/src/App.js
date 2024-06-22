@@ -13,18 +13,9 @@ const App = () => {
   const loadReviews = async () => {
     setLoading(true);
     try {
-      // 여기에 Heroku 서버의 이미지 목록을 가져오는 API 호출을 추가합니다.
-      const response = await axios.get('/api/images');  // 수정된 부분
-      const files = response.data;
-      const filteredReviews = files.filter(file => file.startsWith('comparison_') && file.endsWith('.png'))
-        .map(file => {
-          const stockName = file.replace('comparison_', '').replace('_VOO.png', '').toUpperCase();
-          return {
-            stockName,
-            imageUrl: `/image/${file}`  // 수정된 부분
-          };
-        });
-      setReviews(filteredReviews);
+      // Heroku 서버에서 이미지를 가져오는 코드
+      const imageUrl = 'https://my-buddy-app-355192a036b3.herokuapp.com/image/comparison_AAPL_VOO.png';
+      setReviews([{ stockName: 'AAPL', imageUrl }]);
     } catch (error) {
       console.error('Error fetching reviews:', error);
     }
@@ -65,7 +56,6 @@ const App = () => {
                 src={review.imageUrl} 
                 alt={`${review.stockName} vs VOO`} 
                 style={{ width: '100%' }} 
-                onClick={() => window.open(review.imageUrl, '_blank')}
               />
             </div>
           ))}
