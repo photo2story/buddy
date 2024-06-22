@@ -29,13 +29,6 @@ class BotCommands(commands.Cog):
 def setup(bot):
     bot.add_cog(BotCommands(bot))
 
-# 이 코드는 디버깅 목적으로 추가합니다
-if __name__ == "__main__":
-    intents = discord.Intents.all()
-    bot = commands.Bot(command_prefix="", intents=intents)
-    setup(bot)
-    TOKEN = os.getenv('DISCORD_APPLICATION_TOKEN')
-    bot.run(TOKEN)
 
 
 
