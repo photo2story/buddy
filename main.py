@@ -210,11 +210,17 @@ async def show_all(ctx):
     except Exception as e:
         await ctx.send(f"An error occurred: {e}")
         print(f"Error: {e}")
+        
+try:
+    from get_ticker import get_ticker_from_korean_name
+    print("Successfully imported get_ticker_from_korean_name")
+except ImportError as e:
+    print(f"ImportError: {e}")        
 
 bot.run(TOKEN)
 
 if __name__ == "__main__":
-    pass
+    app.run(host='0.0.0.0', port=int(os.getenv("PORT", 8080)))
 
 # .\\.venv\\Scripts\\activate
 # python main.py
