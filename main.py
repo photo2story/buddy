@@ -4,13 +4,11 @@ from dotenv import load_dotenv
 from discord.ext import commands, tasks
 import discord
 import threading
-from flask_cors import CORS
 
 # Load environment variables
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
 
 @app.route('/')
 def home():
@@ -18,7 +16,6 @@ def home():
 
 @app.route('/api/stock', methods=['GET'])
 def get_stock():
-    # 여기에 로직을 추가하세요
     return jsonify({"stock": "AAPL", "price": 150})
 
 @app.route('/image/<filename>')
